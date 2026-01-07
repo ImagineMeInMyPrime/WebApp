@@ -58,21 +58,68 @@ export const Contacts = () => {
             <div className="message-text">
               <p>Свяжитесь со мной:</p>
               <div className="contacts-list">
-                {resumeData.contacts.map((contact, index) => (
-                  <a
-                    key={index}
-                    href={contact.link || '#'}
-                    target={contact.link ? '_blank' : undefined}
-                    rel={contact.link ? 'noopener noreferrer' : undefined}
-                    className="contact-item"
-                  >
-                    <span className="contact-icon">{getContactIcon(contact.type)}</span>
-                    <div className="contact-info">
-                      <span className="contact-type">{contact.type}</span>
-                      <span className="contact-value">{contact.value}</span>
-                    </div>
-                  </a>
-                ))}
+                {resumeData.contacts.map((contact, index) => {
+                  // Автоматически создаем ссылку если её нет
+                  let finalLink = contact.link;
+                  if (!finalLink) {
+                    if (contact.type === 'Email') {
+                      finalLink = `mailto:${contact.value}`;
+                    } else if (contact.type === 'GitHub' && contact.value.includes('github.com')) {
+                      finalLink = `https://${contact.value}`;
+                    } else if (contact.type === 'GitHub' && !contact.value.startsWith('http')) {
+                      finalLink = `https://github.com/${contact.value.replace('github.com/', '').replace('@', '')}`;
+                    } else if (contact.type === 'LinkedIn' && contact.value.includes('linkedin.com')) {
+                      finalLink = `https://${contact.value}`;
+                    } else if (contact.type === 'LinkedIn' && !contact.value.startsWith('http')) {
+                      finalLink = `https://linkedin.com/in/${contact.value.replace('linkedin.com/in/', '').replace('@', '')}`;
+                    } else if (contact.type === 'Telegram' && contact.value.startsWith('@')) {
+                      finalLink = `https://t.me/${contact.value.replace('@', '')}`;
+                    } else if (contact.type === 'Telegram' && !contact.value.startsWith('http')) {
+                      finalLink = `https://t.me/${contact.value}`;
+                    } else if (contact.type === 'Phone') {
+                      finalLink = `tel:${contact.value.replace(/\s/g, '')}`;
+                    }
+                  }
+                  
+                  // Если ссылка все еще не создана, не делаем её кликабельной
+                  if (!finalLink || finalLink === '#') {
+                    return (
+                      <div key={index} className="contact-item contact-item-disabled">
+                        <span className="contact-icon">{getContactIcon(contact.type)}</span>
+                        <div className="contact-info">
+                          <span className="contact-type">{contact.type}</span>
+                          <span className="contact-value">{contact.value}</span>
+                        </div>
+                      </div>
+                    );
+                  }
+                  
+                  return (
+                    <a
+                      key={index}
+                      href={finalLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="contact-item"
+                      onClick={(e) => {
+                        // Убеждаемся что ссылка валидна
+                        if (!finalLink || finalLink === '#') {
+                          e.preventDefault();
+                        }
+                      }}
+                    >
+                      <span className="contact-icon">{getContactIcon(contact.type)}</span>
+                      <div className="contact-info">
+                        <span className="contact-type">{contact.type}</span>
+                        <span className="contact-value">{contact.value}</span>
+                      </div>
+                      <svg className="contact-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                      </svg>
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
