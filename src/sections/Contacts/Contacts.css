@@ -1,0 +1,51 @@
+.contacts-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: var(--discord-bg-secondary);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--transition-fast);
+  border: 1px solid var(--discord-border-light);
+}
+
+.contact-item:hover {
+  background-color: var(--discord-bg-hover);
+  border-color: var(--discord-accent);
+  transform: translateX(4px);
+}
+
+.contact-icon {
+  font-size: 24px;
+  width: 32px;
+  text-align: center;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.contact-type {
+  font-size: 12px;
+  color: var(--discord-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-value {
+  font-size: 14px;
+  color: var(--discord-text-primary);
+  font-weight: 500;
+}
