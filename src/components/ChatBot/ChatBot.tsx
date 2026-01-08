@@ -34,57 +34,112 @@ export const ChatBot = () => {
 
   const generateAIResponse = async (userMessage: string): Promise<string> => {
     const version = generateVersion();
-    const lowerMessage = userMessage.toLowerCase();
+    const lowerMessage = userMessage.toLowerCase().trim();
     
-    // Ответы о резюме
-    if (lowerMessage.includes('резюме') || lowerMessage.includes('опыт') || lowerMessage.includes('навыки')) {
-      return `В моем резюме вы найдете информацию о моем опыте работы, навыках, образовании и контактах. Используйте меню слева для навигации по разделам! v${version}`;
+    // Анализ контекста сообщения
+    const words = lowerMessage.split(/\s+/);
+    const messageLength = words.length;
+    
+    // Приветствия и начало разговора
+    if (lowerMessage.match(/^(привет|здравствуй|hi|hello|добр|хай|салют)/i)) {
+      const greetings = [
+        `Привет! Чем могу помочь? v${version}`,
+        `Здравствуйте! Готов ответить на ваши вопросы. v${version}`,
+        `Приветствую! Что вас интересует? v${version}`,
+      ];
+      return greetings[Math.floor(Math.random() * greetings.length)];
     }
     
-    if (lowerMessage.includes('навык') || lowerMessage.includes('технологи')) {
-      return `Я работаю с современными технологиями: JavaScript/TypeScript, React, Node.js, CSS и многими другими. Подробнее смотрите в разделе "Навыки"! v${version}`;
+    // Вопросы о резюме и опыте
+    if (lowerMessage.match(/(резюме|опыт|работа|професси|карьер)/i)) {
+      return `В резюме есть информация о моем опыте работы, навыках, образовании и контактах. Используйте меню слева для навигации! v${version}`;
     }
     
-    if (lowerMessage.includes('опыт работы') || lowerMessage.includes('компания')) {
-      return `У меня есть опыт работы в различных компаниях. Подробную информацию о моем опыте вы можете найти в разделе "Опыт работы". v${version}`;
+    // Вопросы о навыках и технологиях
+    if (lowerMessage.match(/(навык|технологи|умеешь|знаешь|язык|фреймворк|библиотек)/i)) {
+      const techResponses = [
+        `Работаю с JavaScript/TypeScript, React, Node.js, CSS и другими современными технологиями. Подробнее в разделе "Навыки"! v${version}`,
+        `Использую современный стек: React, TypeScript, Node.js. Все навыки указаны в разделе "Навыки". v${version}`,
+        `Владею различными технологиями веб-разработки. Смотрите раздел "Навыки" для деталей. v${version}`,
+      ];
+      return techResponses[Math.floor(Math.random() * techResponses.length)];
     }
     
-    if (lowerMessage.includes('образование') || lowerMessage.includes('университет')) {
-      return `Информацию об образовании можно найти в разделе "Образование". Там указаны все учебные заведения и достижения. v${version}`;
+    // Вопросы о компаниях и опыте работы
+    if (lowerMessage.match(/(компани|работ|проект|где работал|опыт работы)/i)) {
+      return `Есть опыт работы в различных компаниях. Подробности в разделе "Опыт работы". v${version}`;
     }
     
-    if (lowerMessage.includes('контакт') || lowerMessage.includes('связаться')) {
-      return `Все контакты для связи находятся в разделе "Контакты". Там вы найдете email, GitHub, LinkedIn и другие способы связи! v${version}`;
+    // Вопросы об образовании
+    if (lowerMessage.match(/(образован|университет|институт|учился|образование)/i)) {
+      return `Информация об образовании находится в разделе "Образование". v${version}`;
     }
     
-    // Приветствия
-    if (lowerMessage.includes('привет') || lowerMessage.includes('здравствуй') || lowerMessage.includes('hi') || lowerMessage.includes('hello')) {
-      return `Привет! Рад вас видеть! Чем могу помочь? v${version}`;
+    // Вопросы о контактах
+    if (lowerMessage.match(/(контакт|связаться|email|телефон|telegram|github|linkedin|написать)/i)) {
+      return `Все контакты для связи в разделе "Контакты". Там email, GitHub, LinkedIn и другие способы связи! v${version}`;
     }
     
-    // Вопросы о проекте
-    if (lowerMessage.includes('проект') || lowerMessage.includes('сайт') || lowerMessage.includes('портфолио')) {
-      return `Этот сайт-резюме создан с использованием React, TypeScript и современных веб-технологий. Интерфейс выполнен в стиле мессенджера для удобства навигации. v${version}`;
+    // Вопросы о проекте/сайте
+    if (lowerMessage.match(/(проект|сайт|портфолио|сделал|создал|разработал)/i)) {
+      return `Сайт создан на React, TypeScript и современных веб-технологиях. Интерфейс в стиле мессенджера. v${version}`;
     }
     
-    // Общие ответы
-    if (lowerMessage.includes('как дела') || lowerMessage.includes('как жизнь')) {
-      return `У меня все отлично! Готов помочь вам узнать больше о моем резюме. v${version}`;
+    // Вопросы "как дела"
+    if (lowerMessage.match(/(как дела|как жизнь|как поживаешь|что нового)/i)) {
+      return `Все отлично! Готов помочь узнать больше о резюме. v${version}`;
     }
     
-    if (lowerMessage.includes('спасибо') || lowerMessage.includes('благодар')) {
-      return `Пожалуйста! Всегда рад помочь. Если есть еще вопросы - спрашивайте! v${version}`;
+    // Благодарности
+    if (lowerMessage.match(/(спасибо|благодар|thanks|thank you)/i)) {
+      const thanksResponses = [
+        `Пожалуйста! Всегда рад помочь. v${version}`,
+        `Не за что! Если будут вопросы - спрашивайте. v${version}`,
+        `Рад был помочь! v${version}`,
+      ];
+      return thanksResponses[Math.floor(Math.random() * thanksResponses.length)];
     }
     
-    // Дефолтные ответы
-    const defaultResponses = [
-      `Интересный вопрос! Могу рассказать больше о моем опыте и навыках. Что именно вас интересует? v${version}`,
+    // Вопросы "кто ты"
+    if (lowerMessage.match(/(кто ты|что ты|ты кто|расскажи о себе)/i)) {
+      return `Я AI-ассистент, помогаю узнать больше о резюме. Задавайте вопросы! v${version}`;
+    }
+    
+    // Вопросы с "что"
+    if (lowerMessage.match(/^что\s+/i)) {
+      return `Могу рассказать о навыках, опыте работы, образовании или контактах. Что именно интересует? v${version}`;
+    }
+    
+    // Вопросы с "как"
+    if (lowerMessage.match(/^как\s+/i)) {
+      return `Могу объяснить подробнее. Уточните, о чем именно вы спрашиваете? v${version}`;
+    }
+    
+    // Короткие сообщения (1-2 слова)
+    if (messageLength <= 2) {
+      const shortResponses = [
+        `Понял. Уточните, пожалуйста, что именно вас интересует? v${version}`,
+        `Можете задать вопрос о резюме, навыках или опыте работы. v${version}`,
+        `Чем могу помочь? Спросите о резюме! v${version}`,
+      ];
+      return shortResponses[Math.floor(Math.random() * shortResponses.length)];
+    }
+    
+    // Умные ответы на основе контекста
+    if (lowerMessage.match(/(расскажи|покажи|поделись|дай информацию)/i)) {
+      return `Могу рассказать о навыках, опыте работы, образовании или контактах. Что именно интересует? v${version}`;
+    }
+    
+    // Дефолтные интеллектуальные ответы
+    const intelligentResponses = [
+      `Интересный вопрос! Могу рассказать о моем опыте, навыках или образовании. Что именно вас интересует? v${version}`,
       `Хороший вопрос! Посмотрите разделы резюме - там много полезной информации. v${version}`,
-      `Я могу помочь вам узнать больше о моем резюме. Попробуйте спросить о навыках, опыте работы или образовании. v${version}`,
-      `Давайте поговорим о резюме! Что вас больше всего интересует? v${version}`,
+      `Понял ваш вопрос. Могу помочь узнать больше о резюме. Попробуйте спросить о навыках, опыте работы или образовании. v${version}`,
+      `Давайте поговорим! Что вас больше всего интересует в резюме? v${version}`,
+      `Могу ответить на вопросы о резюме. Спросите о навыках, опыте, образовании или контактах. v${version}`,
     ];
     
-    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+    return intelligentResponses[Math.floor(Math.random() * intelligentResponses.length)];
   };
 
   const handleSendMessage = async () => {
@@ -140,10 +195,6 @@ export const ChatBot = () => {
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                   </svg>
-                </div>
-                <div>
-                  <h3 className="chatbot-title">AI Ассистент</h3>
-                  <p className="chatbot-subtitle">Онлайн</p>
                 </div>
               </div>
               <button 
