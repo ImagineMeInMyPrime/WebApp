@@ -8,6 +8,7 @@ import { Skills } from './sections/Skills/Skills';
 import { Experience } from './sections/Experience/Experience';
 import { Education } from './sections/Education/Education';
 import { Contacts } from './sections/Contacts/Contacts';
+import { Chat } from './sections/Chat/Chat';
 import './App.css';
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
         return <Education />;
       case 'contacts':
         return <Contacts />;
+      case 'chat':
+        return <Chat />;
       default:
         return <About />;
     }

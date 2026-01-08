@@ -81,8 +81,7 @@ export const resumeData: ResumeData = {
   ],
   contacts: [
     { type: "Email", value: "your.email@example.com", link: "mailto:your.email@example.com" },
-    { type: "GitHub", value: "github.com/username", link: "https://github.com/username" },
-    { type: "LinkedIn", value: "linkedin.com/in/username", link: "https://linkedin.com/in/username" },
-    { type: "Telegram", value: "@username", link: "https://t.me/username" },
+    { type: "GitHub", value: "github.com/ImagineMeInMyPrime", link: "https://github.com/ImagineMeInMyPrime" },
+    { type: "Telegram", value: "@ImagineMeInMyPrime", link: "https://t.me/ImagineMeInMyPrime" },
   ],
 };
