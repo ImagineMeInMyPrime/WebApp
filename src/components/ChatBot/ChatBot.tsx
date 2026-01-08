@@ -11,17 +11,18 @@ interface Message {
 
 export const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      text: 'Привет! Я AI-ассистент. Могу ответить на вопросы о резюме или просто поболтать. Чем могу помочь?',
-      isUser: false,
-      timestamp: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [messageCount, setMessageCount] = useState(0);
+
+  // Генерация версии для ответа
+  const generateVersion = (): string => {
+    const major = 1;
+    const minor = Math.floor(Math.random() * 90) + 10; // От 10 до 99
+    return `${major}.${minor}`;
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -32,57 +33,55 @@ export const ChatBot = () => {
   }, [messages]);
 
   const generateAIResponse = async (userMessage: string): Promise<string> => {
-    // Простая система ответов на основе ключевых слов
-    // В будущем здесь можно подключить реальный AI API
-    
+    const version = generateVersion();
     const lowerMessage = userMessage.toLowerCase();
     
     // Ответы о резюме
     if (lowerMessage.includes('резюме') || lowerMessage.includes('опыт') || lowerMessage.includes('навыки')) {
-      return 'В моем резюме вы найдете информацию о моем опыте работы, навыках, образовании и контактах. Используйте меню слева для навигации по разделам!';
+      return `В моем резюме вы найдете информацию о моем опыте работы, навыках, образовании и контактах. Используйте меню слева для навигации по разделам! v${version}`;
     }
     
     if (lowerMessage.includes('навык') || lowerMessage.includes('технологи')) {
-      return 'Я работаю с современными технологиями: JavaScript/TypeScript, React, Node.js, CSS и многими другими. Подробнее смотрите в разделе "Навыки"!';
+      return `Я работаю с современными технологиями: JavaScript/TypeScript, React, Node.js, CSS и многими другими. Подробнее смотрите в разделе "Навыки"! v${version}`;
     }
     
     if (lowerMessage.includes('опыт работы') || lowerMessage.includes('компания')) {
-      return 'У меня есть опыт работы в различных компаниях. Подробную информацию о моем опыте вы можете найти в разделе "Опыт работы".';
+      return `У меня есть опыт работы в различных компаниях. Подробную информацию о моем опыте вы можете найти в разделе "Опыт работы". v${version}`;
     }
     
     if (lowerMessage.includes('образование') || lowerMessage.includes('университет')) {
-      return 'Информацию об образовании можно найти в разделе "Образование". Там указаны все учебные заведения и достижения.';
+      return `Информацию об образовании можно найти в разделе "Образование". Там указаны все учебные заведения и достижения. v${version}`;
     }
     
     if (lowerMessage.includes('контакт') || lowerMessage.includes('связаться')) {
-      return 'Все контакты для связи находятся в разделе "Контакты". Там вы найдете email, GitHub, LinkedIn и другие способы связи!';
+      return `Все контакты для связи находятся в разделе "Контакты". Там вы найдете email, GitHub, LinkedIn и другие способы связи! v${version}`;
     }
     
     // Приветствия
     if (lowerMessage.includes('привет') || lowerMessage.includes('здравствуй') || lowerMessage.includes('hi') || lowerMessage.includes('hello')) {
-      return 'Привет! Рад вас видеть! Чем могу помочь?';
+      return `Привет! Рад вас видеть! Чем могу помочь? v${version}`;
     }
     
     // Вопросы о проекте
     if (lowerMessage.includes('проект') || lowerMessage.includes('сайт') || lowerMessage.includes('портфолио')) {
-      return 'Этот сайт-резюме создан с использованием React, TypeScript и современных веб-технологий. Интерфейс выполнен в стиле мессенджера для удобства навигации.';
+      return `Этот сайт-резюме создан с использованием React, TypeScript и современных веб-технологий. Интерфейс выполнен в стиле мессенджера для удобства навигации. v${version}`;
     }
     
     // Общие ответы
     if (lowerMessage.includes('как дела') || lowerMessage.includes('как жизнь')) {
-      return 'У меня все отлично! Готов помочь вам узнать больше о моем резюме.';
+      return `У меня все отлично! Готов помочь вам узнать больше о моем резюме. v${version}`;
     }
     
     if (lowerMessage.includes('спасибо') || lowerMessage.includes('благодар')) {
-      return 'Пожалуйста! Всегда рад помочь. Если есть еще вопросы - спрашивайте!';
+      return `Пожалуйста! Всегда рад помочь. Если есть еще вопросы - спрашивайте! v${version}`;
     }
     
     // Дефолтные ответы
     const defaultResponses = [
-      'Интересный вопрос! Могу рассказать больше о моем опыте и навыках. Что именно вас интересует?',
-      'Хороший вопрос! Посмотрите разделы резюме - там много полезной информации.',
-      'Я могу помочь вам узнать больше о моем резюме. Попробуйте спросить о навыках, опыте работы или образовании.',
-      'Давайте поговорим о резюме! Что вас больше всего интересует?',
+      `Интересный вопрос! Могу рассказать больше о моем опыте и навыках. Что именно вас интересует? v${version}`,
+      `Хороший вопрос! Посмотрите разделы резюме - там много полезной информации. v${version}`,
+      `Я могу помочь вам узнать больше о моем резюме. Попробуйте спросить о навыках, опыте работы или образовании. v${version}`,
+      `Давайте поговорим о резюме! Что вас больше всего интересует? v${version}`,
     ];
     
     return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
@@ -91,9 +90,10 @@ export const ChatBot = () => {
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
+    const userMessageText = inputValue.trim();
     const userMessage: Message = {
       id: Date.now().toString(),
-      text: inputValue,
+      text: userMessageText,
       isUser: true,
       timestamp: new Date(),
     };
@@ -101,10 +101,11 @@ export const ChatBot = () => {
     setMessages((prev) => [...prev, userMessage]);
     setInputValue('');
     setIsTyping(true);
+    setMessageCount((prev) => prev + 1);
 
     // Имитация задержки ответа AI
     setTimeout(async () => {
-      const aiResponse = await generateAIResponse(inputValue);
+      const aiResponse = await generateAIResponse(userMessageText);
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: aiResponse,
@@ -113,7 +114,7 @@ export const ChatBot = () => {
       };
       setMessages((prev) => [...prev, aiMessage]);
       setIsTyping(false);
-    }, 1000 + Math.random() * 1000);
+    }, 800 + Math.random() * 1200);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -177,7 +178,14 @@ export const ChatBot = () => {
                     </div>
                   )}
                   <div className="chatbot-message-content">
-                    <p>{message.text}</p>
+                    <p>
+                      {message.text.split(/(v\d+\.\d+)/).map((part, index) => {
+                        if (part.match(/^v\d+\.\d+$/)) {
+                          return <span key={index} className="chatbot-version">{part}</span>;
+                        }
+                        return part;
+                      })}
+                    </p>
                     <span className="chatbot-message-time">
                       {message.timestamp.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
                     </span>
@@ -248,8 +256,8 @@ export const ChatBot = () => {
             <path d="M7 9h2v2H7zm4 0h6v2h-6zm-4 4h6v2H7z"/>
           </svg>
         )}
-        {!isOpen && messages.length > 1 && (
-          <span className="chatbot-notification-badge">{messages.length - 1}</span>
+        {!isOpen && messages.length > 0 && (
+          <span className="chatbot-notification-badge">{messages.filter(m => m.isUser).length}</span>
         )}
       </motion.button>
     </>
