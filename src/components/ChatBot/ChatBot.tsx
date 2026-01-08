@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import './ChatBot.css';
 
 interface Message {
@@ -15,7 +15,6 @@ export const ChatBot = () => {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [messageCount, setMessageCount] = useState(0);
 
   // Генерация версии для ответа
   const generateVersion = (): string => {
@@ -156,7 +155,6 @@ export const ChatBot = () => {
     setMessages((prev) => [...prev, userMessage]);
     setInputValue('');
     setIsTyping(true);
-    setMessageCount((prev) => prev + 1);
 
     // Имитация задержки ответа AI
     setTimeout(async () => {
