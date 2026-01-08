@@ -125,15 +125,14 @@ export const ChatBot = () => {
 
   return (
     <>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="chatbot-container"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
-          >
+      {isOpen && (
+        <motion.div
+          className="chatbot-container"
+          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8, y: 20 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        >
             <div className="chatbot-header">
               <div className="chatbot-header-info">
                 <div className="chatbot-avatar">
@@ -146,7 +145,14 @@ export const ChatBot = () => {
                   <p className="chatbot-subtitle">Онлайн</p>
                 </div>
               </div>
-              <button className="chatbot-close" onClick={() => setIsOpen(false)}>
+              <button 
+                className="chatbot-close" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsOpen(false);
+                }}
+                type="button"
+              >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
                   <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -219,14 +225,17 @@ export const ChatBot = () => {
               </button>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+      )}
 
       <motion.button
         className="chatbot-toggle-button"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen(!isOpen);
+        }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
+        type="button"
       >
         {isOpen ? (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
