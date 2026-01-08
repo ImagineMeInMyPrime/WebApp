@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Header } from './components/Header/Header';
 import { Sidebar, Section } from './components/Sidebar/Sidebar';
 import { ChatWindow } from './components/ChatWindow/ChatWindow';
+import { ChatBot } from './components/ChatBot/ChatBot';
 import { About } from './sections/About/About';
 import { Skills } from './sections/Skills/Skills';
 import { Experience } from './sections/Experience/Experience';
@@ -49,6 +50,7 @@ function App() {
         <Header />
         <ChatWindow>{renderSection()}</ChatWindow>
       </div>
+      <ChatBot />
     </div>
   );
 }
