@@ -1,43 +1,514 @@
+.education-container {
+  width: 100%;
+}
+
 .education-card {
   background-color: var(--discord-bg-secondary);
   border-radius: var(--radius-md);
-  padding: 16px;
-  margin-top: 8px;
+  padding: 20px;
+  margin-top: 12px;
   border: 1px solid var(--discord-border-light);
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.education-card:hover {
+  border-color: var(--discord-accent);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.1);
 }
 
 .education-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
+}
+
+.education-title-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.education-icon {
+  font-size: 24px;
+  flex-shrink: 0;
 }
 
 .education-degree {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: var(--discord-text-primary);
   margin: 0;
+  line-height: 1.3;
+}
+
+.education-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
 }
 
 .education-period {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--discord-text-muted);
   white-space: nowrap;
+  font-weight: 500;
+}
+
+.education-duration {
+  font-size: 11px;
+  color: var(--discord-accent);
+  font-weight: 600;
+}
+
+.education-institution-section {
+  margin-bottom: 16px;
 }
 
 .education-institution {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--discord-accent);
-  font-weight: 500;
+  font-weight: 600;
   margin: 0 0 8px 0;
+}
+
+.education-dates {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--discord-text-muted);
+  font-style: italic;
+}
+
+.education-description-section {
+  margin-bottom: 16px;
 }
 
 .education-description {
   font-size: 14px;
   color: var(--discord-text-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0;
+}
+
+.education-courses-section,
+.education-achievements-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--discord-border-light);
+}
+
+.education-toggle-button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: var(--discord-bg-primary);
+  border: 1px solid var(--discord-border-light);
+  border-radius: var(--radius-md);
+  color: var(--discord-text-primary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.education-toggle-button:hover {
+  background-color: var(--discord-bg-hover);
+  border-color: var(--discord-accent);
+}
+
+.education-courses,
+.education-achievements {
+  margin-top: 12px;
+  padding-left: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.course-item,
+.achievement-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px;
+  margin-bottom: 6px;
+  background-color: var(--discord-bg-primary);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--discord-text-secondary);
+  line-height: 1.5;
+}
+
+.course-icon,
+.achievement-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.education-expand-button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: var(--discord-bg-primary);
+  border: 1px solid var(--discord-border-light);
+  border-radius: var(--radius-md);
+  color: var(--discord-text-primary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  width: 100%;
+  font-family: inherit;
+}
+
+.education-expand-button:hover {
+  background-color: var(--discord-accent);
+  color: white;
+  border-color: var(--discord-accent);
+}
+
+.education-stats {
+  margin-top: 20px;
+  padding: 16px;
+  background-color: var(--discord-bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--discord-border-light);
+}
+
+.education-stats h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--discord-text-primary);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  background-color: var(--discord-bg-primary);
+  border-radius: var(--radius-md);
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--discord-accent);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--discord-text-muted);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.institutions-list {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--discord-border-light);
+}
+
+.institutions-list h4 {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--discord-text-primary);
+}
+
+.institutions-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.institution-tag {
+  padding: 6px 12px;
+  background-color: var(--discord-bg-primary);
+  border: 1px solid var(--discord-border-light);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  color: var(--discord-text-primary);
+  font-weight: 500;
+}
+
+.education-timeline-section {
+  margin-top: 20px;
+}
+
+.timeline-toggle {
+  width: 100%;
+  padding: 10px 16px;
+  background-color: var(--discord-bg-secondary);
+  border: 1px solid var(--discord-border-light);
+  border-radius: var(--radius-md);
+  color: var(--discord-text-primary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.timeline-toggle:hover {
+  background-color: var(--discord-bg-hover);
+  border-color: var(--discord-accent);
+}
+
+.education-timeline {
+  margin-top: 16px;
+  padding-left: 24px;
+  border-left: 2px solid var(--discord-border-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 24px;
+  padding-left: 24px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -30px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--discord-accent);
+  border: 2px solid var(--discord-bg-secondary);
+  box-shadow: 0 0 0 2px var(--discord-border-light);
+}
+
+.timeline-content {
+  background-color: var(--discord-bg-secondary);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--discord-border-light);
+}
+
+.timeline-date {
+  font-size: 11px;
+  color: var(--discord-text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.timeline-info {
+  font-size: 14px;
+  color: var(--discord-text-primary);
+  margin-bottom: 4px;
+}
+
+.timeline-info strong {
+  color: var(--discord-accent);
+}
+
+.timeline-duration {
+  font-size: 12px;
+  color: var(--discord-text-muted);
+  font-style: italic;
+}
+
+.education-summary {
+  padding: 12px;
+  background-color: var(--discord-bg-secondary);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--discord-accent);
+  margin: 12px 0;
+  font-style: italic;
+  color: var(--discord-text-secondary);
+}
+
+.education-filter-panel,
+.education-export-panel,
+.education-keywords-panel {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: var(--discord-bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--discord-border-light);
+}
+
+.filter-panel-toggle,
+.export-panel-toggle,
+.keywords-panel-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  color: var(--discord-text-primary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+
+.filter-panel-toggle:hover,
+.export-panel-toggle:hover,
+.keywords-panel-toggle:hover {
+  background-color: var(--discord-bg-hover);
+}
+
+.filter-panel-content,
+.export-panel-content,
+.keywords-panel-content {
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.filter-group {
+  margin-bottom: 12px;
+}
+
+.filter-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--discord-text-secondary);
+  margin-bottom: 6px;
+}
+
+.filter-input,
+.filter-select {
+  width: 100%;
+  padding: 8px 12px;
+  background-color: var(--discord-bg-primary);
+  border: 1px solid var(--discord-border-light);
+  border-radius: var(--radius-md);
+  color: var(--discord-text-primary);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.filter-input:focus,
+.filter-select:focus {
+  border-color: var(--discord-accent);
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.1);
+}
+
+.filter-reset-button {
+  width: 100%;
+  padding: 8px;
+  background-color: var(--discord-bg-primary);
+  border: 1px solid var(--discord-border-light);
+  border-radius: var(--radius-md);
+  color: var(--discord-text-primary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  margin-top: 8px;
+  font-family: inherit;
+}
+
+.filter-reset-button:hover {
+  background-color: var(--discord-bg-hover);
+  border-color: var(--discord-accent);
+}
+
+.export-button {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background-color: var(--discord-bg-primary);
+  border: 1px solid var(--discord-border-light);
+  border-radius: var(--radius-md);
+  color: var(--discord-text-primary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.export-button:hover {
+  background-color: var(--discord-accent);
+  color: white;
+  border-color: var(--discord-accent);
+}
+
+.export-button:last-child {
+  margin-bottom: 0;
+}
+
+.keywords-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.keyword-tag {
+  padding: 6px 12px;
+  background-color: var(--discord-bg-primary);
+  border: 1px solid var(--discord-border-light);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  color: var(--discord-text-primary);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.keyword-tag:hover {
+  background-color: var(--discord-accent);
+  color: white;
+  border-color: var(--discord-accent);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .education-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .education-meta {
+    align-items: flex-start;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .education-timeline {
+    padding-left: 16px;
+  }
+
+  .timeline-item {
+    padding-left: 16px;
+  }
+
+  .timeline-marker {
+    left: -22px;
+  }
 }

@@ -1,3 +1,7 @@
+.contacts-container {
+  width: 100%;
+}
+
 .contacts-list {
   margin-top: 12px;
   display: flex;
@@ -24,7 +28,7 @@
   background-color: var(--discord-bg-hover);
   border-color: var(--discord-accent);
   transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(88, 101, 242, 0.15);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.15);
 }
 
 .contact-item-disabled {
@@ -38,10 +42,16 @@
   box-shadow: none;
 }
 
+.contact-item-copied {
+  border-color: var(--discord-success);
+  background-color: rgba(59, 165, 93, 0.1);
+}
+
 .contact-icon {
   font-size: 24px;
   width: 32px;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .contact-info {
@@ -49,6 +59,7 @@
   flex-direction: column;
   gap: 2px;
   flex: 1;
+  min-width: 0;
 }
 
 .contact-type {
@@ -62,16 +73,213 @@
   font-size: 14px;
   color: var(--discord-text-primary);
   font-weight: 500;
+  word-break: break-word;
+}
+
+.contact-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-copy-button {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: none;
+  background-color: var(--discord-bg-primary);
+  color: var(--discord-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.contact-copy-button:hover {
+  background-color: var(--discord-bg-hover);
+  color: var(--discord-accent);
 }
 
 .contact-arrow {
-  margin-left: auto;
   color: var(--discord-text-muted);
   opacity: 0;
   transition: all var(--transition-fast);
+  flex-shrink: 0;
 }
 
 .contact-item:hover .contact-arrow {
   opacity: 1;
   color: var(--discord-accent);
+}
+
+.contact-copy-feedback {
+  position: absolute;
+  top: -30px;
+  right: 0;
+  padding: 4px 8px;
+  background-color: var(--discord-success);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.contacts-stats {
+  margin-top: 16px;
+  padding: 16px;
+  background-color: var(--discord-bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--discord-border-light);
+}
+
+.contacts-stats h3 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--discord-text-primary);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  background-color: var(--discord-bg-primary);
+  border-radius: var(--radius-md);
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--discord-accent);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--discord-text-muted);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.view-mode-toggle {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 4px;
+  background-color: var(--discord-bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--discord-border-light);
+}
+
+.view-mode-button {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  color: var(--discord-text-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.view-mode-button:hover {
+  background-color: var(--discord-bg-hover);
+  color: var(--discord-text-primary);
+}
+
+.view-mode-button.active {
+  background-color: var(--discord-accent);
+  color: white;
+}
+
+.contact-groups {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-group {
+  background-color: var(--discord-bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--discord-border-light);
+  overflow: hidden;
+}
+
+.group-header {
+  width: 100%;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.group-header:hover {
+  background-color: var(--discord-bg-hover);
+}
+
+.group-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--discord-text-primary);
+  font-size: 14px;
+}
+
+.group-icon {
+  font-size: 18px;
+}
+
+.group-count {
+  color: var(--discord-text-muted);
+  font-weight: 400;
+}
+
+.group-toggle {
+  font-size: 12px;
+  color: var(--discord-text-muted);
+}
+
+.group-contacts {
+  padding: 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .contact-item {
+    flex-wrap: wrap;
+  }
+
+  .contact-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
